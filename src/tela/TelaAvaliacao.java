@@ -61,14 +61,19 @@ public class TelaAvaliacao extends javax.swing.JFrame {
      private void preencherImagem () {
          imagens=new HashMap < String , String >() ;
          
-         imagens.put("imgJPG","/Imagem/imgJPG.jpg" );
-         imagens.put("imgPNG","/Imagem/imgPNG.png" );
+         imagens.put("OriginalPNG","/Imagem/OriginalPNG.png");
+         imagens.put("Original","/Imagem/Original.jpg");
+         
+           
          
          //---------------------------------------------
          
          listImg =  new ArrayList<>();
-         listImg.add(new Imagem("imgJPG","/Imagem/imgJPG.png" ));
-         listImg.add(new Imagem("imgPNG","/Imagem/imgPNG.png"));
+        
+         listImg.add(new Imagem("OriginalPNG","/Imagem/OriginalPNG.png"));
+         listImg.add(new Imagem("Original","/Imagem/Original.jpg"));
+         
+         
          
          
          
