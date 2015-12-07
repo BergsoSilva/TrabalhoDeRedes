@@ -6,7 +6,9 @@
 package tela;
 
 import java.awt.Image;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +38,7 @@ public class TelaAvaliacao extends javax.swing.JFrame {
  /******* inicialzações de sockets*************/
     private Socket sockecliente ;
     private PrintWriter enviarProServidor;
+    private ObjectOutputStream objetoClienteParaServ;
     
     
     
@@ -363,15 +366,28 @@ public class TelaAvaliacao extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, avaliacao.getImagem()+""+avaliacao.getVotos().toString() +""+avaliacao.getAvaliadores().toString());
         jButtonIniciar.setEnabled(true);
         contador=0;
-        
+       
         try {
             sockecliente = new Socket("127.0.0.1",5000);
             enviarProServidor = new PrintWriter(sockecliente.getOutputStream());
             
-            enviarProServidor.println(avaliacao.getImagem());
-            enviarProServidor.flush();
+            objetoClienteParaServ = new ObjectOutputStream(sockecliente.getOutputStream());
+            enviarProServidor.print(avaliacao.getImagem());
+            enviarProServidor.print(avaliacao.getAvaliadores());
+            enviarProServidor.print(avaliacao.getVotos());
+            
+           // for (Avaliacao ava : avaliacoes) {
+            //    Serializable obj = (Serializable) ava;
+             //   objetoClienteParaServ.writeObject(obj); 
+               // objetoClienteParaServ.flush();
+          //  }
+          
+            
+           // objetoClienteParaServ.flush();
+           // enviarProServidor.flush();
             
             enviarProServidor.close();
+          //  objetoClienteParaServ.close();
             
         } catch (Exception ex){
             ex.getMessage();
@@ -438,7 +454,8 @@ public class TelaAvaliacao extends javax.swing.JFrame {
                   //jButtonGravar.setEnabled(false);
                   
               }
-         
+   
+         avaliacoes.add(avaliacao);
         
     }//GEN-LAST:event_jButtonVotarActionPerformed
 
